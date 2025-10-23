@@ -32,6 +32,7 @@ It is intended that all devices in this list work, but since I do not own them a
 | A3936 | Space A40         | Working |
 | A3951 | Liberty Air 2 Pro | Unknown |
 | A3945 | Life Note 3S      | Unknown |
+| A3947 | Liberty 4 NC      | Working |
 | A3948 | A20i              | Unknown |
 | A3933 | Life Note 3       | Working |
 | A3939 | Life P3           | Working |

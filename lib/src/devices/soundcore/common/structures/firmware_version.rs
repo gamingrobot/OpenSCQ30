@@ -160,6 +160,12 @@ mod tests {
     }
 
     #[test]
+    fn test_string_all_zero() {
+        let firmware_version = FirmwareVersion::new(0, 0);
+        assert_eq!("00.00", firmware_version.to_string());
+    }
+
+    #[test]
     fn test_major_has_priority_in_ordering() {
         let bigger = FirmwareVersion::new(1, 0);
         let smaller = FirmwareVersion::new(0, 20);

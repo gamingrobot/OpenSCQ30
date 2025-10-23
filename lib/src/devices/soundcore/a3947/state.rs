@@ -1,0 +1,60 @@
+use openscq30_lib_macros::Has;
+
+use crate::devices::soundcore::common::structures::{
+    AgeRange, AmbientSoundModeCycle, AutoPowerOff, BatteryLevel, CustomHearId, DualBattery,
+    DualFirmwareVersion, EqualizerConfiguration, Gender, SerialNumber, TouchTone, TwsStatus,
+    button_configuration::ButtonStatusCollection,
+};
+
+use super::{packets::A3947StateUpdatePacket, structures::A3947SoundModes};
+
+#[derive(Debug, Clone, PartialEq, Eq, Has)]
+pub struct A3947State {
+    pub tws_status: TwsStatus,
+    pub battery: DualBattery,
+    pub dual_firmware_version: DualFirmwareVersion,
+    pub serial_number: SerialNumber,
+    pub equalizer_configuration: EqualizerConfiguration<2, 10>,
+    pub age_range: AgeRange,
+    pub custom_hear_id: CustomHearId<2, 10>,
+    //pub sound_modes: A3947SoundModes,
+    //pub ambient_sound_mode_cycle: AmbientSoundModeCycle,
+    pub button_configuration: ButtonStatusCollection<6>,
+    //pub charging_case_battery: BatteryLevel,
+    pub auto_power_off: AutoPowerOff,
+    pub gender: Gender,
+    pub touch_tone: TouchTone,
+    // #[has(skip)]
+    // pub color: u8,
+    #[has(skip)]
+    pub ldac: bool,
+    // #[has(skip)]
+    // pub supports_two_cnn_switch: bool,
+    #[has(skip)]
+    pub game_mode_switch: bool,
+}
+
+impl From<A3947StateUpdatePacket> for A3947State {
+    fn from(value: A3947StateUpdatePacket) -> Self {
+        Self {
+            tws_status: value.tws_status,
+            battery: value.battery,
+            dual_firmware_version: value.dual_firmware_version,
+            serial_number: value.serial_number,
+            equalizer_configuration: value.equalizer_configuration,
+            age_range: value.age_range,
+            custom_hear_id: value.custom_hear_id,
+            //sound_modes: value.sound_modes,
+            //ambient_sound_mode_cycle: value.ambient_sound_mode_cycle,
+            button_configuration: value.button_configuration,
+            touch_tone: value.touch_tone,
+            //charging_case_battery: value.charging_case_battery,
+            //color: value.color,
+            ldac: value.ldac,
+            //supports_two_cnn_switch: value.supports_two_cnn_switch,
+            auto_power_off: value.auto_power_off,
+            game_mode_switch: value.game_mode_switch,
+            gender: Gender::default(),
+        }
+    }
+}
